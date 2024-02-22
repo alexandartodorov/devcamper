@@ -18,7 +18,7 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
   removeFields.forEach((param) => delete reqQuery[param]);
 
   // Finding Resource
-  query = Bootcamp.find(reqQuery);
+  query = Bootcamp.find(reqQuery).populate('courses');
 
   // Select Fields
   if (req.query.select) {
