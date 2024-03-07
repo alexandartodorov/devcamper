@@ -7,6 +7,9 @@ const {
   deleteBootcamp,
 } = require('../controllers/bootcamps');
 
+const Bootcamp = require('../models/Bootcamp');
+const advancedResults = require('../middleware/advancedResults');
+
 // Include other resource routers
 const courseRouter = require('./courses');
 
@@ -19,7 +22,7 @@ router.use('/:bootcampId/courses', courseRouter);
 
 router
   .route('/')
-  .get(getBootcamps)
+  .get(advancedResults(Bootcamp, 'courses'), getBootcamps)
   .post(protect, authorize('publisher', 'admin'), createBootcamp);
 
 router
